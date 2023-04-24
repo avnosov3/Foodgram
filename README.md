@@ -21,7 +21,7 @@ git@github.com:avnosov3/foodgram.git
 ```
 2. Перейти в папку с проектом
 ```
-cd infra
+cd foodgram
 ```
 3. Запустить docker-compose
 ```
