@@ -17,29 +17,46 @@
 
 1. Клонировать репозиторий
 ```
-git@github.com:avnosov3/foodgram.git
+git@github.com:avnosov3/Foodgram.git
 ```
 2. Перейти в папку с проектом
 ```
-cd foodgram
+cd Foodgram
 ```
-3. Запустить docker-compose
+3. Создать файл .env в папке infra
+```
+cd infra
+```
+```
+SECRET_KEY=<Указать секретный ключ>
+DEBUG=True (если запуск в боевом режиме, то необходимо удалить пермеенную)
+HOST=<Указать хост>
+
+DB_ENGINE=django.db.backends.postgresql
+DB_NAME=<Указать название БД>
+POSTGRES_USER=<Указать имя пользователя>
+POSTGRES_PASSWORD=<Указать пароль пользователя>
+DB_HOST=127.0.0.1
+DB_PORT=<Указать порт для подключения к базе>
+``` 
+4. Подключить ssl по [инструкции](https://pentacent.medium.com/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71)
+5. Запустить docker-compose
 ```
 docker-compose up -d --build
 ```
-4. Применить миграции
+6. Применить миграции
 ```
 docker-compose exec web python manage.py migrate
 ```
-5. Создать супер-юзера
+7. Создать супер-юзера
 ```
 docker-compose exec web python manage.py createsuperuser
 ```
-6. Собрать статику
+8. Собрать статику
 ```
 docker-compose exec web python manage.py collectstatic --no-input
 ```
-7. Заполнить БД
+9. Заполнить БД
 ```
 docker-compose exec web python manage.py loadjson
 ```
