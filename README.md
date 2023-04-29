@@ -17,7 +17,7 @@
 
 1. Клонировать репозиторий
 ```
-git@github.com:avnosov3/Foodgram.git
+git clone git@github.com:avnosov3/Foodgram.git
 ```
 2. Перейти в папку с проектом
 ```
@@ -33,10 +33,10 @@ DEBUG=True (если запуск в боевом режиме, то необх�
 HOST=<Указать хост>
 
 DB_ENGINE=django.db.backends.postgresql
-DB_NAME=<Указать название БД>
+DB_NAME=postgres
 POSTGRES_USER=<Указать имя пользователя>
 POSTGRES_PASSWORD=<Указать пароль пользователя>
-DB_HOST=127.0.0.1
+DB_HOST=db
 DB_PORT=<Указать порт для подключения к базе>
 ``` 
 4. Подключить ssl по [инструкции](https://pentacent.medium.com/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71)
@@ -60,6 +60,7 @@ docker-compose exec web python manage.py collectstatic --no-input
 ```
 docker-compose exec web python manage.py loadjson
 ```
+10. Создать в админке теги
 
 ## Автор
 * [Носов Артём](https://github.com/avnosov3)

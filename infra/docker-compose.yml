@@ -3,14 +3,17 @@ version: '3.3'
 services:
 
   db:
-    image: postgres:14.0-alpine
+    image: postgres:13.0-alpine
     volumes:
-    - database:/var/lib/postgresql/data/
+    - foodgram_db:/var/lib/postgresql/data/
     env_file:
     - ./.env
 
   web:
-    image: avnosov/foodgram-backend:v1
+    # image: avnosov/foodgram-backend:v1
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
     restart: always
     volumes:
     - static_volume:/app/static/
@@ -21,19 +24,22 @@ services:
     - ./.env
 
   frontend:
-    image: avnosov/foodgram-frontend:v1
+    # image: avnosov/foodgram-frontend:v1
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
     volumes:
       - ../frontend/:/app/result_build/
     depends_on:
       - web
 
   nginx:
-    image: nginx:1.19.3
+    image: nginx:1.21.3-alpine
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
       - ../frontend/build:/usr/share/nginx/html/
@@ -57,4 +63,4 @@ services:
 volumes:
   static_volume:
   media_volume:
-  database:
+  foodgram_db:
