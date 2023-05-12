@@ -1,19 +1,20 @@
-version: '3.3'
+version: '3.8'
 
 services:
 
   db:
     image: postgres:13.0-alpine
+    container_name: database
     volumes:
     - foodgram_db:/var/lib/postgresql/data/
     env_file:
     - ./.env
 
   web:
-    # image: avnosov/foodgram-backend:v1
     build:
       context: ../backend
       dockerfile: Dockerfile
+    container_name: web
     restart: always
     volumes:
     - static_volume:/app/static/
@@ -24,17 +25,18 @@ services:
     - ./.env
 
   frontend:
-    # image: avnosov/foodgram-frontend:v1
     build:
       context: ../frontend
       dockerfile: Dockerfile
+    container_name: frontend
     volumes:
       - ../frontend/:/app/result_build/
     depends_on:
       - web
 
   nginx:
-    image: nginx:1.21.3-alpine
+    image: nginx:1.24.0-alpine-slim
+    container_name: nginx
     ports:
       - "80:80"
       - "443:443"
@@ -53,11 +55,17 @@ services:
 
   certbot:
     image: certbot/certbot
+    container_name: certbot
     restart: unless-stopped
     volumes:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+  
+  adminer:
+    image: adminer:4.8.1-standalone
+    container_name: adminer
+    restart: always
 
 
 volumes:
