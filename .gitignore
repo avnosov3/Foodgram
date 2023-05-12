@@ -1,4 +1,3 @@
-media/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -133,3 +132,6 @@ dmypy.json
 # .idea
 .idea
 .vscode/
+
+media/
+.local/
