@@ -30,7 +30,6 @@ cd infra
 ```
 SECRET_KEY=<Указать секретный ключ>
 DEBUG=True (если запуск в боевом режиме, то необходимо удалить пермеенную)
-HOST=<Указать хост>
 
 DB_ENGINE=django.db.backends.postgresql
 DB_NAME=postgres
