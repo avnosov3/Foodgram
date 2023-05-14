@@ -16,7 +16,7 @@ services:
     container_name: backend
     restart: always
     volumes:
-    - static_volume:/app/static/django/
+    - static_volume:/app/static/
     - media_volume:/app/media/
     depends_on:
     - database
