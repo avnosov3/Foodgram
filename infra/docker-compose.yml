@@ -16,7 +16,7 @@ services:
     container_name: backend
     restart: always
     volumes:
-    - static_volume:/app/static/
+    - static_volume:/app/static/django/
     - media_volume:/app/media/
     depends_on:
     - database
@@ -44,7 +44,7 @@ services:
       - ./data/certbot/www:/var/www/certbot
       - ../frontend/build:/usr/share/nginx/html/
       - ../docs/:/usr/share/nginx/html/api/docs/
-      - static_volume:/var/html/static/
+      - static_volume:/var/html/static-django/
       - media_volume:/var/html/media/
     depends_on:
       - backend
